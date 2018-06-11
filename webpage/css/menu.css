@@ -1,0 +1,103 @@
+body{
+  /*background:#909eab url(../images/photo.jpg);*/
+  font-family: Hevetica, sans-serif;
+  font-size: 18 px;
+  line-height: 24 px;
+}
+
+nav ul {
+    /* dark menu background */
+    background-color: #090e13;
+    /* remove default style for ul */
+    list-style: none;
+    /* each ul should be in a block */
+    display: inline-block;
+    /* expand to width of parent container */
+    width: 100%;
+    /* should render on top of everything else */
+    z-index: 99;
+}
+
+nav ul ul {
+  display: none;
+}
+
+/*remove default margins and padding
+for our body,*/
+body, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/*let's float the elements so they appear
+inline with relative positioning and as
+ far to the left as possible.*/
+nav ul li {
+  float:left;
+  position:relative;
+  bacground:none;
+}
+
+/* let's make each menu link have a nice     */
+/* padded box to live in. Let's also fix the */
+/* color of the displayed menu item.         */
+nav ul li a {
+  display: block;
+  padding: 25px 40px;
+  color: #757575;
+  text-decoration: none;
+}
+
+/*a css pseudo class taht will activate when
+the mouse is hovering over a list item in
+the top level of the nav menu.*/
+nav ul li:hover a {
+  color: #fff;
+}
+
+/*Display a submenu if we hover
+over a parent*/
+nav ul li:hover > ul {
+  display: block;
+}
+
+/*Remove float for submenus, and make
+them relatevely positioned*/
+nav ul ul li {
+  float: none;
+  position: relative;
+  border-top: 1px solid #6b727c;
+  border-bottom: 1px solid #575f6a;
+}
+
+/*Remove our submenu from the normal
+flow  of layout when the client
+draws the webpage.
+use absolute positioning.*/
+nav ul ul {
+  bacground: #090e13;
+  border-radius: 0px;
+  position: absolute;
+}
+
+/*position our su-menus to the
+right of the submenu dropdown.*/
+nav ul ul ul {
+  position: absolute;
+  left: 100%;
+  top:0;
+}
+
+/*adjust the padding and color of a
+sub sub menu item*/
+nav ul ul li a {
+  padding: 15px 15px 15px 15px;
+  color: #fff;
+}
+
+/*Change background color on a
+sub sub menu item when hover*/
+nav ul ul li a:hover {
+  bacground: #4b545f;
+}
