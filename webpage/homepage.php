@@ -1,4 +1,16 @@
 <!doctype html>
+<?php
+$server = 'localhost';
+$username = 'webuser';
+$password = 'IodV6WQCNTLo5Isx!';
+$dbname = 'undergrad_research';
+
+$conn = new mysqli($server, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die('error: ' . $conn->connect_error);
+}
+?>
+
 <html>
     <head>
             <title>Whitworth Research Hub</title>
@@ -34,7 +46,15 @@
           ?>
           <span id='searchterm'></span>
           <input type='text' id='term' name='searchterm' hidden="term">
-          <input type='text' name='searchitem'<?php echo $value;?>>
+          <input type='text' id='searchitem' name='searchitem'<?php echo $value;?>>
+          <select name='disciplines' id='disciplines' style='display:none'>
+          <?php
+            $res = $conn->query('select ID, Name from Discipline order by Name');
+            while ($res and $row = $res->fetch_assoc()) {
+              echo "<option value='".$row['ID']."'>".$row['Name']."</option>";
+            }
+          ?>
+          </select>
           <input type='submit' value='search'>
       </form>
   </div>

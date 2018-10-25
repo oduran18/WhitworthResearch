@@ -1,15 +1,4 @@
 <?php
-$server = 'localhost';
-$username = 'webuser';
-$password = 'IodV6WQCNTLo5Isx!';
-$dbname = 'undergrad_research';
-
-$conn = new mysqli($server, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die('error: ' . $conn->connect_error);
-}
-
-
 //Show the name of the author
 // $n -- name of auther
 // $u -- is this author an undergraduate (0 or 1). These authors are marked in italics
@@ -103,10 +92,13 @@ function showRow($conn, $id, $search, $title, $url, $pub, $date, $awards) {
             }
 
             elseif($_REQUEST['searchterm'] == 'Discipline') {
-              $sql = "SELECT Name, ID FROM Discipline";
+              $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
+                      "from Products P, ProductResearcher PR, Researchers R, ProductPublication PP, Publication Pub, ProductDiscipline PD ".
+                      "where PD.ProductID=P.ID and P.ID=PR.ProductID and P.ID=PP.ProductID and PR.ResearcherID=R.ID and PP.PublicationID = Pub.ID and PD.DisciplineID = ".$_REQUEST['disciplines']." ".
+                      "order by P.Date desc, P.ID, PR.AuthorOrder ";
             }
 
-            echo "<p>sql: ".$sql."</p>";
+            //echo "<p>sql: ".$sql."</p>";
             $res = $conn->query($sql);
 
             while ($row = $res->fetch_assoc()) {

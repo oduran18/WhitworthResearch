@@ -19,3 +19,7 @@ add to what gets downloaded
 
 query, get all discipline.
 drop down menu on discipline.
+
+do not repeat papers by authors or any other key.
+
+Start add paper page, form

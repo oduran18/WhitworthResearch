@@ -9,6 +9,18 @@ function setTerm(t) {
   st.innerHTML = t;
   var term = document.getElementById('term');
   term.value = t;
+
+  var dis = (t == 'Discipline');
+  if (dis) {
+    //document.getElementById('disciplines').style.visibility = 'visible';
+    document.getElementById('disciplines').style.display = 'inline';
+    document.getElementById('searchitem').style.display = 'none';
+  }
+  else {
+    document.getElementById('disciplines').style.display = 'none';
+    document.getElementById('searchitem').style.display = 'inline';
+  }
+
 }
 
 function filterfunction()
