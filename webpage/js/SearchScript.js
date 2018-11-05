@@ -20,7 +20,32 @@ function setTerm(t) {
     document.getElementById('disciplines').style.display = 'none';
     document.getElementById('searchitem').style.display = 'inline';
   }
+}
 
+  /*var auth =(a == 'Authors');
+  if (auth) {
+    document.getElementById('authors').style.display = 'inline';
+  }
+  else {
+    document.getElementById('authors').style.display = 'none';
+  }
+
+}*/
+function addselect(){
+  var s = document.getElementById('chooseauthors');
+  var sel = document.createElement('select');
+  s.appendChild(sel);
+  var opt = document.createElement('option');
+  //<option value="" selected disabled hidden>Author</option>
+  opt.value = '';
+  opt.innerHTML='Author';
+  sel.appendChild(opt);
+  for (var i=0; i<authors.length; i++) {
+    opt = document.createElement('option');
+    opt.id=authors[i].id;
+    opt.innerHTML = authors[i].name;
+    sel.appendChild(opt);
+  }
 }
 
 function filterfunction()

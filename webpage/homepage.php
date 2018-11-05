@@ -35,6 +35,7 @@ if ($conn->connect_error) {
               </ul>
           </li>
           <li><a href="resources.php">Resources</a></li>
+          <li><a href="publish.php">Publish</a></li>
       </ul>
   </nav>
 
