@@ -23,3 +23,6 @@ drop down menu on discipline.
 do not repeat papers by authors or any other key.
 
 Start add paper page, form
+
+
+each select needs different names
