@@ -85,33 +85,22 @@
     <!--Add Author field-->
     <span id='chooseauthors'>
       Author Name:<br>
-      <select name="author" onchange="addselect()">
+      <select name="selAuthor0" onchange="addselect()">
         <option value="" selected disabled hidden>Author</option>
         <?php
         $res = $conn->query('select ID, Name from Researchers order by Name');
         while ($row = $res->fetch_assoc()) {
           echo "<option value=".$row[ 'ID'].">".$row['Name']."</option>";
         }
+
         echo "<p>sql: ".$sql."</p>";
         $res = $conn->query($sql);
         ?>
       </select>
     </span>
-    <br/>
+    <br>
 
     <!--In case there are more than one author, this field will be available-->
-    <!--<select name="authors">
-      <option value="" selected disabled hidden>Other Authors</option>
-      <?php
-      $res = $conn->query('select ID, Name from Researchers order by Name');
-      while ($row = $res->fetch_assoc()) {
-        echo "<option value=".$row[ 'ID'].">".$row['Name']."</option>";
-      }
-      echo "<p>sql: ".$sql."</p>";
-      $res = $conn->query($sql);
-      ?>
-    </select>
-    <br>-->
     <script>
       var authors = [
         <?php
@@ -133,8 +122,9 @@
     <input type="text" name="title"><br>
 
     <!--Add Discipline field-->
+    <span id="choosediscipline">
     Discipline:<br>
-    <select name="discipline">
+    <select name="discipline" onchange="addselectdis()">
       <option value="" selected disabled hidden>Discipline</option>
       <?php
         $res = $conn->query('select ID, Name from Discipline order by Name');
@@ -143,6 +133,27 @@
         }
       ?>
     </select>
+    </span>
+    <br>
+
+    <!--In case there are several disciplines to add -->
+    <!--Script to handle multiple adding multiple disciplines -->
+    <script>
+      var discipline = [
+        <?php
+        $res = $conn->query('select ID, Name from Discipline order by Name');
+        $first=true;
+        while ($row = $res->fetch_assoc()) {
+          if ($first == false) {
+            echo ",";
+          }
+          $first=false;
+          echo "{id:".$row[ 'ID'].",name:'".$row['Name']."'}";
+        }
+        ?>
+      ];
+    </script>
+
     <br>
     PDF URL (if available)<br>
     <input type="text" name="URL"><br>

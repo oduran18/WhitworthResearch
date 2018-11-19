@@ -31,9 +31,14 @@ function setTerm(t) {
   }
 
 }*/
+
+var selauthorid=1;
 function addselect(){
   var s = document.getElementById('chooseauthors');
   var sel = document.createElement('select');
+
+  sel.name = "selAuthor"+(selauthorid);
+  selauthorid=selauthorid+1;
   s.appendChild(sel);
   var opt = document.createElement('option');
   //<option value="" selected disabled hidden>Author</option>
@@ -44,6 +49,23 @@ function addselect(){
     opt = document.createElement('option');
     opt.id=authors[i].id;
     opt.innerHTML = authors[i].name;
+    sel.appendChild(opt);
+  }
+}
+
+//Fucntion for adding multiple disciplines
+function addselectdis(){
+  var d = document.getElementById('choosediscipline');
+  var sel = document.createElement('select');
+  d.appendChild(sel);
+  var opt = document.createElement('option');
+  opt.value = '';
+  opt.innerHTML='Discipline';
+  sel.appendChild(opt);
+  for (var i=0; i<discipline.length; i++) {
+    opt = document.createElement('option');
+    opt.id=discipline[i].id;
+    opt.innerHTML = discipline[i].name;
     sel.appendChild(opt);
   }
 }
