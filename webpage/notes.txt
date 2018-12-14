@@ -28,3 +28,11 @@ Start add paper page, form
 each select needs different names
 
 figure out onchange for javascript.
+
+add new authors and disciplines, this should be links in the publish page.
+
+List paper only one, not by authors.
+
+add discipline and undergrad to add author
+
+#f79520

@@ -101,6 +101,7 @@ function showRow($conn, $id, $search, $title, $url, $pub, $date, $awards) {
             //echo "<p>sql: ".$sql."</p>";
             $res = $conn->query($sql);
 
+            $lastid = 0;
             while ($row = $res->fetch_assoc()) {
                 $id = $row['ID'];
                 $title = $row['Title'];
@@ -108,7 +109,10 @@ function showRow($conn, $id, $search, $title, $url, $pub, $date, $awards) {
                 $date = $row['Date'];
                 $awards = $row['Awards'];
                 $pub = $row['Publication'];
-                showRow($conn, $id, $search, $title, $url, $pub, $date, $awards);
+                if ($lastid != $row['ID']) {
+                  showRow($conn, $id, $search, $title, $url, $pub, $date, $awards);
+                  $lastid = $row['ID'];
+                }
             }
         }
     ?>

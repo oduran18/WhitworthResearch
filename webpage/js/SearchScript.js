@@ -36,7 +36,6 @@ var selauthorid=1;
 function addselect(){
   var s = document.getElementById('chooseauthors');
   var sel = document.createElement('select');
-
   sel.name = "selAuthor"+(selauthorid);
   selauthorid=selauthorid+1;
   s.appendChild(sel);

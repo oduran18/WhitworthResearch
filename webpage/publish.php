@@ -80,7 +80,7 @@
 
   <!--This Form is for the Publication part of the page. It will allow users to add new publications-->
   <p>Publication Form, please fill all the fields provided</p>
-  <form>
+  <form method='POST'>
 
     <!--Add Author field-->
     <span id='chooseauthors'>
@@ -97,6 +97,7 @@
         $res = $conn->query($sql);
         ?>
       </select>
+      <a href="addauthor.php">Add Author</a>
     </span>
     <br>
 
@@ -113,6 +114,7 @@
           $first=false;
           echo "{id:".$row[ 'ID'].",name:'".$row['Name']."'}";
         }
+        //$sql = "INSERT INTO (NameID, Name, Title, DisciplineID, Discipline)";
         ?>
       ];
     </script>
@@ -130,9 +132,11 @@
         $res = $conn->query('select ID, Name from Discipline order by Name');
         while ($res and $row = $res->fetch_assoc()) {
           echo "<option value='".$row['ID']."'>".$row['Name']."</option>";
+
         }
       ?>
     </select>
+      <a href="adddiscipline.php">Add Discipline</a>
     </span>
     <br>
 
@@ -157,5 +161,18 @@
     <br>
     PDF URL (if available)<br>
     <input type="text" name="URL"><br>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+  <?php
+  if (isset($_POST['title'])) {
+    $title = $conn->real_escape_string($_POST['title']);
+
+    $sql = "INSERT INTO Product (Title, Date, URL) VALUES ('".$title."', '".$_POST['date']."', '".$_POST['URL']."')";
+    $res = $conn->query($sql);
+    $prod_id = $conn->insert_id();
+    $conn->query("INSERT INTO ProductResearcher (ProductID, ResearchID) VALUES (".$prod_id.", ".$author_id.")");
+  }
+  ?>
 </body>
 </html>
