@@ -11,62 +11,9 @@ function setTerm(t) {
   term.value = t;
 
   var dis = (t == 'Discipline');
-  if (dis) {
-    //document.getElementById('disciplines').style.visibility = 'visible';
-    document.getElementById('disciplines').style.display = 'inline';
-    document.getElementById('searchitem').style.display = 'none';
-  }
-  else {
-    document.getElementById('disciplines').style.display = 'none';
-    document.getElementById('searchitem').style.display = 'inline';
-  }
-}
+  document.getElementById('discipline').hidden = !dis;
+  document.getElementById('searchitem').hidden = dis;
 
-  /*var auth =(a == 'Authors');
-  if (auth) {
-    document.getElementById('authors').style.display = 'inline';
-  }
-  else {
-    document.getElementById('authors').style.display = 'none';
-  }
-
-}*/
-
-var selauthorid=1;
-function addselect(){
-  var s = document.getElementById('chooseauthors');
-  var sel = document.createElement('select');
-  sel.name = "selAuthor"+(selauthorid);
-  selauthorid=selauthorid+1;
-  s.appendChild(sel);
-  var opt = document.createElement('option');
-  //<option value="" selected disabled hidden>Author</option>
-  opt.value = '';
-  opt.innerHTML='Author';
-  sel.appendChild(opt);
-  for (var i=0; i<authors.length; i++) {
-    opt = document.createElement('option');
-    opt.id=authors[i].id;
-    opt.innerHTML = authors[i].name;
-    sel.appendChild(opt);
-  }
-}
-
-//Fucntion for adding multiple disciplines
-function addselectdis(){
-  var d = document.getElementById('choosediscipline');
-  var sel = document.createElement('select');
-  d.appendChild(sel);
-  var opt = document.createElement('option');
-  opt.value = '';
-  opt.innerHTML='Discipline';
-  sel.appendChild(opt);
-  for (var i=0; i<discipline.length; i++) {
-    opt = document.createElement('option');
-    opt.id=discipline[i].id;
-    opt.innerHTML = discipline[i].name;
-    sel.appendChild(opt);
-  }
 }
 
 function filterfunction()
@@ -87,4 +34,83 @@ function filterfunction()
       a[i].style.display = "";
     }
   }
+}
+
+function formatAuth(auth, index) {
+  var term = document.getElementById('term').value;
+  var item = document.getElementById('searchitem').value;
+
+  if (index != 0)
+    disp = disp + ", ";
+  
+  if (term == 'Author' && auth.Name.indexOf(item) != -1)
+    disp = disp + "<b>";
+  if (auth.Undergrad == 1)
+    disp = disp + "<i>";
+  disp = disp + auth.Name;
+  if (auth.Undergrad == 1)
+    disp = disp + "</i>";
+  if (term == 'Author' && auth.Name.indexOf(item) != -1)
+    disp = disp + "</b>";
+}
+
+function showTitle(title, url) {
+  var ret = "";
+  //Do we have a url? If so, anchor to it.
+  if (url.length > 0) {
+      ret = "<a href='"+url+"'>";
+  }
+  ret = ret + title;
+  if (url.length > 0) {
+      ret = ret + "</a>";
+  }
+
+  return ret;
+}
+
+var pubids = new Set();
+var disp = "";
+
+function formatPub(pub, index) {
+  if (pubids.has(pub.id))
+    return;
+  pubids.add(pub.id);
+
+  disp = disp + "<p class='pub'>"
+
+  pub.authors.forEach(formatAuth);
+  
+  disp = disp + '. ';
+  disp = disp + showTitle(pub.title, pub.url);
+  disp = disp + '. ';
+  disp = disp + '<i>' + pub.publication + '</i>. ';
+  disp = disp + pub.date + '. ';
+  if (pub.awards.length > 0)
+    disp = disp +  '(' + pub.awards + ')';
+
+  disp = disp +  '</p>';
+}
+
+function formatPubs(pubs) {
+  pubids = new Set();
+  disp = "";
+  var res = document.getElementById('search-results');
+  pubs.forEach(formatPub);
+  res.innerHTML = disp;
+}
+
+function pubsearch() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      formatPubs(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open("POST", "searchdata.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  var term = document.getElementById('term').value;
+  var item = document.getElementById('searchitem').value;
+  var e = document.getElementById('discipline');
+  var discipline = e.options[e.selectedIndex].value;
+  xhttp.send("json=1&searchitem="+item+"&searchterm="+term+"&searchdiscipline="+discipline+"");
 }

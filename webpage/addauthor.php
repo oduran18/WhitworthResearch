@@ -40,9 +40,13 @@
     if (isset($_POST['Name']))
     {
       $newauthor = $conn->real_escape_string($_POST['Name']);
-      $sql = "INSERT INTO Researchers (Name, Undergraduate, DisciplineID) values ('".$newauthor."')";
+      $sql = "INSERT INTO Researchers (Name) values ('".$newauthor."')";
       $res = $conn->query($sql);
+      echo "sql: " . $sql . "<br/>";
+      /*
       $auth_id = $conn->insert_id();
+      echo 'id: ' . $auth_id . '<br/>';
+      */
     }
     else if (count($_POST) > 0)
       print_r($_POST);

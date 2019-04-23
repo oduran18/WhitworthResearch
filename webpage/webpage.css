@@ -9,7 +9,7 @@ body
 nav ul
 {
     /* dark menu background */
-    background-color: #C22033;
+    background-color: red;
     /* remove default style for ul */
     list-style: none;
     /* each ul should be in a block */
@@ -41,7 +41,7 @@ nav ul li
 {
   float:left;
   position:relative;
-  background:none;
+  bacground:none;
 }
 
 /* let's make each menu link have a nice     */
@@ -51,6 +51,7 @@ nav ul li a
 {
   display: block;
   padding: 25px 40px;
+  color: #75757;
   text-decoration: none;
 }
 
@@ -111,72 +112,19 @@ nav ul ul li a
 sub sub menu item when hover*/
 nav ul ul li a:hover
 {
-  background: #4b545f;
+  bacground: #4b545f;
 }
 
 /*search box space and placement*/
 nav input[type=text]
 {
   float: right;
-  padding: none;
-  border: none;
+  padding: 6px;
+  border none;
   margin-top: 8px;
   margin-right: 16px;
   margin-bottom: 12px;
-  font-size: 15px;
-}
-
-.search-results
-{
-  border: none;
-  background-image: none;
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-}
-
-.pub {
-  margin-bottom: 8px;
-}
-
-/*search field*/
-.search-box
-{
-  width:45%;
-  float: right;
-  border: none;
-  background-image: none;
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-}
-
-
-/*search field*/
-.search
-{
-  float: right;
-  border: none;
-  background-image: none;
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-  border: none;
-  /*border-bottom: 1px solid #ddd;*/
-}
-
-.search[type=submit]
-{
-  padding: 14px 20px 12px 45px;
-}
-
-/*input search filed when it gets selected*/
-#inputsearch:focus
-{
-  outline: none;
+  font size: 15px;
 }
 
 a
@@ -189,7 +137,7 @@ a
 .dropbtn
 {
   float: none;
-  background-color: #C22033;
+  background-color: #FF0000;
   color: black;
   padding: 14px 20px 12px 15px;
   font-size: 16px;
@@ -209,6 +157,25 @@ a
   color: white;
 }
 
+/*search field*/
+#searchitem
+{
+  float: right;
+  border-box: box-sizing;
+  background-image: none;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+/*input search filed when it gets selected*/
+#inputsearch:focus
+{
+  outline: none;
+}
 
 /*positioning of the dropdown div field*/
 .dropdown
@@ -223,8 +190,8 @@ a
 {
   display: none;
   position: absolute;
-  background-color: white;
-  min-width: 100px;
+  background-color: inherit;
+  min-width: 230px;
   border: 1px solid #ddd;
   z-index: 1;
 }
@@ -236,7 +203,6 @@ a
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-  z-index: 1;
 }
 
 /*change color of dropdown links on hover*/
@@ -251,20 +217,9 @@ a
   display:block;
 }
 
-.header
-{
-  margin: 10px;
-}
-
-.whitworth-logo {
-  display: block;
-  height: 2.5em;
-  width: 11em;
-  margin: lem 0;
-}
-
 div h2
 {
+    position: absolute;
     top: 35px;
     left: 95px;
 }
