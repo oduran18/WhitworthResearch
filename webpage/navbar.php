@@ -1,10 +1,10 @@
 <nav>
       <ul>
           <li><a href="homepage.php">Home</a></li>
-          <li><a href="#">Researcher</a>
+          <li><a href="#">Products</a>
               <ul>
                   <li><a href="discipline.php">Discipline</a></li>
-                  <li><a href="product.php">Product</a></li>
+                  <li><a href="product.php">Publication</a></li>
                   <li><a href="category.php">Category</a>
                   </li>
               </ul>

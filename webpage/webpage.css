@@ -9,7 +9,7 @@ body
 nav ul
 {
     /* dark menu background */
-    background-color: red;
+    background-color: #c22033;
     /* remove default style for ul */
     list-style: none;
     /* each ul should be in a block */
@@ -41,7 +41,7 @@ nav ul li
 {
   float:left;
   position:relative;
-  bacground:none;
+  background:none;
 }
 
 /* let's make each menu link have a nice     */
@@ -51,7 +51,7 @@ nav ul li a
 {
   display: block;
   padding: 25px 40px;
-  color: #75757;
+  color: #757575;
   text-decoration: none;
 }
 
@@ -86,7 +86,7 @@ draws the webpage.
 use absolute positioning.*/
 nav ul ul
 {
-  bacground: #090e13;
+  background: #090e13;
   border-radius: 0px;
   position: absolute;
 }
@@ -112,7 +112,7 @@ nav ul ul li a
 sub sub menu item when hover*/
 nav ul ul li a:hover
 {
-  bacground: #4b545f;
+  background: #4b545f;
 }
 
 /*search box space and placement*/
@@ -120,11 +120,11 @@ nav input[type=text]
 {
   float: right;
   padding: 6px;
-  border none;
+  border: none;
   margin-top: 8px;
   margin-right: 16px;
   margin-bottom: 12px;
-  font size: 15px;
+  font-size: 15px;
 }
 
 a
@@ -137,7 +137,7 @@ a
 .dropbtn
 {
   float: none;
-  background-color: #FF0000;
+  background-color: #c22033;
   color: black;
   padding: 14px 20px 12px 15px;
   font-size: 16px;

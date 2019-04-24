@@ -9,6 +9,8 @@
       <link rel="icon" type="image/png" href="https://www.whitworth.edu/favicon/favicon-16x16.png" sizes="16x16">
   </head>
 <body>
+  <?php include 'searchdata.php'; ?>
+
   <?php include 'header.php'; showHeader('Categories'); ?>
   <?php include 'navbar.php'; ?>
 

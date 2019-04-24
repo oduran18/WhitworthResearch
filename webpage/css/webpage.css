@@ -126,6 +126,12 @@ nav input[type=text]
   font-size: 15px;
 }
 
+span.results {
+  font-size: 12px;
+  font-style: italic;
+  color: #4b545f;
+}
+
 .search-results
 {
   border: none;
@@ -133,24 +139,37 @@ nav input[type=text]
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
+  padding: 14px 20px 12px 15px;
 }
 
 .pub {
   margin-bottom: 8px;
 }
 
+/*content field*/
+.content-box
+{
+  width:40%;
+  float: left;
+  border: none;
+  background-image: none;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 15px;
+}
+
 /*search field*/
 .search-box
 {
-  width:45%;
+  width:40%;
   float: right;
   border: none;
   background-image: none;
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
+  padding: 14px 20px 12px 15px;
 }
 
 
@@ -163,14 +182,14 @@ nav input[type=text]
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
+  padding: 14px 20px 12px 15px;
   border: none;
   /*border-bottom: 1px solid #ddd;*/
 }
 
 .search[type=submit]
 {
-  padding: 14px 20px 12px 45px;
+  padding: 14px 20px 12px 15px;
 }
 
 /*input search filed when it gets selected*/
@@ -184,6 +203,19 @@ a
   text-decoration: none;
   color: black;
 }
+
+/*Dropdown button*/
+.btn
+{
+  float: none;
+  background-color: #C22033;
+  color: black;
+  padding: 14px 20px 12px 15px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
 
 /*Dropdown button*/
 .dropbtn
@@ -227,6 +259,7 @@ a
   min-width: 100px;
   border: 1px solid #ddd;
   z-index: 1;
+  font-size: 12px;
 }
 
 /*links inside the dropdown*/
@@ -237,12 +270,14 @@ a
   text-decoration: none;
   display: block;
   z-index: 1;
+  font-size: 12px;
 }
 
 /*change color of dropdown links on hover*/
 .dropdown-content a:hover
 {
   background-color: #f1f1f1;
+  font-size: 12px;
 }
 
 /*show the dropdown menu*/

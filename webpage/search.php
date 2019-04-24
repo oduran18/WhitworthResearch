@@ -1,5 +1,3 @@
-<?php include 'searchdata.php'; ?>
-
 <div class='search-box'>
 <div class="search">
       <div>

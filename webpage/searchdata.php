@@ -132,7 +132,6 @@ function fetchData($conn, $searchitem, $searchterm, $searchdiscipline) {
               "and P.Title LIKE '%" . $search . "%' " .
               "order by P.Date desc, P.ID, PR.AuthorOrder";
     }
-
     elseif($searchterm == 'Discipline') {
       $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
               "from Products P, ProductResearcher PR, Researchers R, ProductDiscipline PD, ProductPublication PP, Publication Pub " .
@@ -140,10 +139,18 @@ function fetchData($conn, $searchitem, $searchterm, $searchdiscipline) {
               "and PD.DisciplineID=".$searchdiscipline . " " .
               "order by P.Date desc, P.ID, PR.AuthorOrder";
     }
-
+    elseif($searchterm == 'Publication') {
+        $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
+               "from Products P, ProductResearcher PR, Researchers R, ProductPublication PP, Publication Pub " .
+               "where P.ID=PR.ProductID and P.ID=PP.ProductID and PR.ResearcherID=R.ID and PP.PublicationID = Pub.ID and " .
+               "Pub.ID= ".$searchitem . " " .
+               "order by P.Date desc, P.ID, PR.AuthorOrder";
+      }
+  
     //echo "<p>sql: ".$sql."</p>";
-    $res = $conn->query($sql);
     $ret = array();
+    $ret[] = (object)array('sql'=>$sql);
+    $res = $conn->query($sql);
     while ($row = $res->fetch_assoc()) {
         $id = $row['ID'];
         $title = $row['Title'];

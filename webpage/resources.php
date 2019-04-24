@@ -9,9 +9,18 @@
       <script src="js/SearchScript.js"></script>
   </head>
 <body>
+  <?php include 'searchdata.php'; ?>
+
   <?php include 'header.php'; showHeader('Resources'); ?>
   <?php include 'navbar.php'; ?>
 
+  <div>
+  <div class='content-box'>
+    <h2>find great resources here!</h2>
+  </div>
+
   <?php include 'search.php'; ?>
+  <div style='clear:both'></div>
+</div>
 </body>
 </html>

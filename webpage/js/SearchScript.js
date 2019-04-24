@@ -72,7 +72,7 @@ var pubids = new Set();
 var disp = "";
 
 function formatPub(pub, index) {
-  if (pubids.has(pub.id))
+  if (pubids.has(pub.id) || pub.authors == null)
     return;
   pubids.add(pub.id);
 
@@ -91,26 +91,43 @@ function formatPub(pub, index) {
   disp = disp +  '</p>';
 }
 
-function formatPubs(pubs) {
-  pubids = new Set();
-  disp = "";
-  var res = document.getElementById('search-results');
-  pubs.forEach(formatPub);
-  res.innerHTML = disp;
+function formatPubs(pubs, res_div) {
+  var res = document.getElementById(res_div);
+  if (pubs.length == 0)
+    res.innerHTML = "<p>no results</p>";
+  else {
+    pubids = new Set();
+    disp = '';
+    pubs.forEach(formatPub);
+    disp = "<p><span class='results'>"+pubids.size+" results</span></p>" + disp;
+    res.innerHTML = disp;
+  }
 }
 
 function pubsearch() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      formatPubs(JSON.parse(this.responseText));
-    }
-  };
-  xhttp.open("POST", "searchdata.php", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   var term = document.getElementById('term').value;
   var item = document.getElementById('searchitem').value;
   var e = document.getElementById('discipline');
   var discipline = e.options[e.selectedIndex].value;
+  fetchPubs(term, item, discipline);
+}
+
+function fetchPubs(term, item, discipline, res_div='search-results') {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      formatPubs(JSON.parse(this.responseText), res_div);
+    }
+  };
+  xhttp.open("POST", "searchdata.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("json=1&searchitem="+item+"&searchterm="+term+"&searchdiscipline="+discipline+"");
+}
+
+function showByDiscipline(discipline) {
+  fetchPubs('Discipline', '', discipline, 'content-results');
+}
+
+function showByPublication(publication) {
+  fetchPubs('Publication', publication, '', 'content-results');
 }
