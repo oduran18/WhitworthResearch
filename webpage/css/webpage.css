@@ -149,7 +149,7 @@ span.results {
 /*content field*/
 .content-box
 {
-  width:40%;
+  width:55%;
   float: left;
   border: none;
   background-image: none;
@@ -209,7 +209,7 @@ a
 {
   float: none;
   background-color: #C22033;
-  color: black;
+  color: white;
   padding: 14px 20px 12px 15px;
   font-size: 16px;
   border: none;
@@ -255,7 +255,9 @@ a
   display: none;
   position: absolute;
   background-color: white;
-  min-width: 100px;
+  min-width: 200px;
+  max-height: 300px;
+  overflow: scroll;
   border: 1px solid #ddd;
   z-index: 1;
   font-size: 12px;

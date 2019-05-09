@@ -18,7 +18,7 @@
                ?>
           </select>
           <!--<input type='submit' value='search'>-->
-          <button onclick='pubsearch()'>search</button>
+          <button class='btn' onclick='pubsearch()'>Search</button>
             </div>
   </div>
 

@@ -9,6 +9,7 @@
                   </li>
               </ul>
           </li>
+          <li><a href="advsearch.php">Advanced Search</a></li>
           <li><a href="resources.php">Resources</a></li>
       </ul>
   </nav>
