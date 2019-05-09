@@ -245,7 +245,6 @@ a
 /*positioning of the dropdown div field*/
 .dropdown
 {
-  float: right;
   position: relative;
   display: inline-block;
 }
