@@ -112,6 +112,18 @@ function pubsearch() {
   fetchPubs(term, item, discipline);
 }
 
+function advpubsearch(authids, discids, pubids, res_div='content-results') {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      formatPubs(JSON.parse(this.responseText), res_div);
+    }
+  };
+  xhttp.open("POST", "searchdata.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("json=1&auths="+JSON.stringify(authids)+"&discs="+JSON.stringify(discids)+"&pubs="+JSON.stringify(pubids)+"");
+}
+
 function fetchPubs(term, item, discipline, res_div='search-results') {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {

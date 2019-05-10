@@ -22,7 +22,7 @@
             </div>
   </div>
 
-  <div class="dropdown">
+  <div class="dropdown search">
     <button hover="dropfunc()" class="dropbtn">Search BY</button>
     <div id="dropfilter" class="dropdown-content">
       <a href="#Keyword" onclick="setTerm('Keyword')">Keyword</a>

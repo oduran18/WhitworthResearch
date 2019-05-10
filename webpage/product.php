@@ -30,8 +30,11 @@
         $res = $conn->query('select ID, Name from Publication order by Name;');
         while ($row = $res->fetch_array()) {
           $pub = $row['Name'];
-          if (strlen($pub) > 10)
-            $pub = substr($pub, 0, 10) . "...";
+          /*
+          $maxlen = 20;
+          if (strlen($pub) > $maxlen)
+            $pub = substr($pub, 0, $maxlen) . "...";
+          */
           echo '<a href="#'.$row['Name'].'" onclick=\'showByPub("'.$row['ID'].'","'.$row['Name'].'")\'>'.$pub.'</a>';
         }
         ?>

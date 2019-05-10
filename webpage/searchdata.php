@@ -167,6 +167,51 @@ function fetchData($conn, $searchitem, $searchterm, $searchdiscipline) {
     return $ret;
 }
 
+function fetchAdvSearch($conn, $auths, $discs, $pubs) {
+    $ret = array();
+
+    if (count($auths) == 0 and count($discs) == 0 and count($pubs) == 0)
+        return "";
+
+    $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
+           "from Products P, ProductResearcher PR, Researchers R, ProductDiscipline PD, ProductPublication PP, Publication Pub " .
+           "where P.ID=PR.ProductID and P.ID=PP.ProductID and P.ID=PD.ProductID and PR.ResearcherID=R.ID and PP.PublicationID = Pub.ID and ";
+
+    $whereIDs = "";
+    if (count($auths) > 0) {
+        $whereIDs .= "R.ID in (" . implode(",", $auths) . ")";
+    }
+    if (count($discs) > 0) {
+        if (strlen($whereIDs) > 0)
+            $whereIDs .= " and ";
+        $whereIDs .= "PD.DisciplineID in (" . implode(",", $discs) . ")";
+    }
+    if (count($pubs) > 0) {
+        if (strlen($whereIDs) > 0)
+            $whereIDs .= " and ";
+        $whereIDs .= "Pub.ID in (" . implode(",", $pubs) . ")";
+    }
+
+    $sql .= "(" . $whereIDs . ") order by P.Date desc, P.ID, PR.AuthorOrder";
+
+    $ret[] = (object)array('sql'=>$sql);
+
+    $res = $conn->query($sql);
+    while ($row = $res->fetch_assoc()) {
+        $id = $row['ID'];
+        $title = $row['Title'];
+        $url = $row['URL'];
+        $date = $row['Date'];
+        $awards = $row['Awards'];
+        $pub = $row['Publication'];
+
+        $ret[] = (object)array('id'=>$id, 'authors'=>fetchAuthors($conn, $id), 'title'=>$title, 'url'=>$url, 'publication'=>$pub,
+                                'date'=>$date, 'awards'=>$awards);
+    }
+
+    return $ret;
+}
+
 function showData($conn, $searchitem, $searchterm, $searchdiscipline) {
     $data = fetchData($conn, $searchitem, $searchterm, $searchdiscipline);
     
@@ -177,6 +222,10 @@ function showData($conn, $searchitem, $searchterm, $searchdiscipline) {
 
 if (isset($_POST['json']) and isset($_POST['searchitem'])) {
     $data = fetchData(connect(), $_REQUEST['searchitem'], $_REQUEST['searchterm'], $_REQUEST['searchdiscipline']);
+    echo json_encode($data);
+}
+elseif (isset($_POST['json']) and isset($_POST['auths'])) {
+    $data = fetchAdvSearch(connect(), json_decode($_REQUEST['auths']), json_decode($_REQUEST['discs']), json_decode($_REQUEST['pubs']));
     echo json_encode($data);
 }
 
