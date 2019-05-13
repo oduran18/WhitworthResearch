@@ -216,6 +216,17 @@ a
   cursor: pointer;
 }
 
+.hidebtn
+{
+  float: none;
+  background-color: #C22033;
+  color: white;
+  padding: 4px;
+  font-size: 10px;
+  border: none;
+  cursor: pointer;
+}
+
 
 /*Dropdown button*/
 .dropbtn

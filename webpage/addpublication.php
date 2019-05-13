@@ -15,12 +15,13 @@
   <?php include 'navbar.php'; ?>
 
   <?php
+    $conn = connect();
     if (isset($_POST['Name']))
     {
       $newpublication = $conn->real_escape_string($_POST['Name']);
       $sql = "INSERT INTO Publication (Name) values ('".$newpublication."')";
       $res = $conn->query($sql);
-      echo '<p>added ' . $newpublication . '.</p>';
+      echo '<p id="add">added ' . $newpublication . '.<button class="hidebtn" onclick="hideParent(this)">X</button></p>';
     }
   ?>
 
@@ -35,7 +36,6 @@
       <button hover="dropfunc()" class="dropbtn">Existing Publications</button>
       <div id="dropfilter" class="dropdown-content">
         <?php
-        $conn = connect();
         $res = $conn->query('select ID, Name from Publication order by Name;');
         while ($row = $res->fetch_array()) {
           $pub = $row['Name'];

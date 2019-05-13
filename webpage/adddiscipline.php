@@ -15,12 +15,13 @@
   <?php include 'navbar.php'; ?>
 
   <?php
+    $conn = connect();
     if (isset($_POST['Name']))
     {
       $newdiscipline = $conn->real_escape_string($_POST['Name']);
       $sql = "INSERT INTO Discipline (Name) values ('".$newdiscipline."')";
       $res = $conn->query($sql);
-      echo '<p>added ' . $newdiscipline . '.</p>';
+      echo '<p id="add">added ' . $newdiscipline . '.<button class="hidebtn" onclick="hideParent(this)">X</button></p>';
     }
   ?>
 
@@ -35,7 +36,6 @@
       <button hover="dropfunc()" class="dropbtn">Existing Disciplines</button>
       <div id="dropfilter" class="dropdown-content">
         <?php
-        $conn = connect();
         $res = $conn->query('select ID, Name from Discipline order by Name;');
         while ($row = $res->fetch_array()) {
           $disp = $row['Name'];

@@ -143,3 +143,7 @@ function showByDiscipline(discipline) {
 function showByPublication(publication) {
   fetchPubs('Publication', publication, '', 'content-results');
 }
+
+function hideParent(e) {
+  e.parentElement.style.display = "none";
+}
