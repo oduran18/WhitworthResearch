@@ -1,49 +1,46 @@
 <!doctype html>
-<?php
-  $server = 'localhost';
-  $username = 'webuser';
-  $password = 'IodV6WQCNTLo5Isx!';
-  $dbname = 'undergrad_research';
-
-  $conn = new mysqli($server, $username, $password, $dbname);
-  if ($conn->connect_error) {
-      die('error: ' . $conn->connect_error);
-  }
-?>
 <html>
   <head>
     <title>Whitworth Research Hub</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="css/webpage.css">
+    <link rel="shortcut icon" type="image/png" href="https://www.whitworth.edu/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" type="image/png" href="https://www.whitworth.edu/favicon/favicon-16x16.png" sizes="16x16">
     <script src="js/SearchScript.js"></script>
   </head>
 <body>
-  <div style="clear: both">
-      <h1 style="float: left"><img src="images/whitlogo.jpg" alt="logo"></h1>
-      <h2 style="float: left">Whitworth Research Hub - Add new publication </h2>
-      <br>
-  </div>
-  <nav>
-      <ul>
-          <li><a href="homepage.php">Home</a></li>
-      </ul>
-  </nav>
-  <br>
-<div style="clear: both">
-  <p>Add new publication, please fill all the fields</p>
-  <form method='POST'>
-    Discipline Name<br>
-    <input type="text" name="Name"><br>
-    <input type="submit" value="Submit">
-  </form>
-</div>
-  <?php
+  <?php include 'searchdata.php'; ?>
+
+  <?php include 'header.php'; showHeader('Add Publication'); ?>
+  <?php include 'navbar.php'; ?>
+
+  <div>
+  <div class='content-box'>
+    <button hover="dropfunc()" class="dropbtn">Publications</button>
+    <div id="dropfilter" class="dropdown-content">
+      <?php
+      $conn = connect();
+      $res = $conn->query('select ID, Name from Publication order by Name;');
+      while ($row = $res->fetch_array()) {
+        $pub = $row['Name'];
+        echo '<a href="#'.$row['Name'].'" onclick=\'showByPub("'.$row['ID'].'","'.$row['Name'].'")\'>'.$pub.'</a>';
+      }
+      ?>
+    </div>
+    <form method='POST'>
+      Publication Name<br>
+      <input type="text" name="Name"><br>
+      <input type="submit" value="Submit">
+    </form>
+    <?php
     if (isset($_POST['Name']))
     {
-      $newdiscipline = $conn->real_escape_string($_POST['Name']);
-      $sql = "INSERT INTO Discipline(Name) values ('".$newdiscipline."')";
+      $newpublication = $conn->real_escape_string($_POST['Name']);
+      $sql = "INSERT INTO Publication (Name) values ('".$newpublication."')";
       $res = $conn->query($sql);
-      $disc_id = $conn->insert_id();
+      echo '<p>added ' . $newpublication . '.</p>';
     }
   ?>
+  </div>
 </body>
 </html>
