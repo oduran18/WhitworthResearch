@@ -14,25 +14,7 @@
   <?php include 'header.php'; showHeader('Add Publication'); ?>
   <?php include 'navbar.php'; ?>
 
-  <div>
-  <div class='content-box'>
-    <button hover="dropfunc()" class="dropbtn">Publications</button>
-    <div id="dropfilter" class="dropdown-content">
-      <?php
-      $conn = connect();
-      $res = $conn->query('select ID, Name from Publication order by Name;');
-      while ($row = $res->fetch_array()) {
-        $pub = $row['Name'];
-        echo '<a href="#'.$row['Name'].'" onclick=\'showByPub("'.$row['ID'].'","'.$row['Name'].'")\'>'.$pub.'</a>';
-      }
-      ?>
-    </div>
-    <form method='POST'>
-      Publication Name<br>
-      <input type="text" name="Name"><br>
-      <input type="submit" value="Submit">
-    </form>
-    <?php
+  <?php
     if (isset($_POST['Name']))
     {
       $newpublication = $conn->real_escape_string($_POST['Name']);
@@ -41,6 +23,27 @@
       echo '<p>added ' . $newpublication . '.</p>';
     }
   ?>
+
+  <div>
+  <div class='content-box'>
+  <form method='POST' style='float:left; margin-right:50px'>
+      Publication Name: 
+      <input type="text" name="Name">
+      <input type="submit" value="Submit" class='btn'>
+    </form>
+    <div class='dropdown'>
+      <button hover="dropfunc()" class="dropbtn">Existing Publications</button>
+      <div id="dropfilter" class="dropdown-content">
+        <?php
+        $conn = connect();
+        $res = $conn->query('select ID, Name from Publication order by Name;');
+        while ($row = $res->fetch_array()) {
+          $pub = $row['Name'];
+          echo '<p>'.$pub.'</p>';
+        }
+        ?>
+      </div>
+    </div>
   </div>
 </body>
 </html>

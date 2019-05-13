@@ -33,7 +33,6 @@
         }
         ?>
       </div>
-
     </div>
 
     <button class='btn' onclick="window.location.href='adddiscipline.php'">Add New Discipline</button><br/>
