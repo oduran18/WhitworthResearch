@@ -16,29 +16,48 @@
 
   <?php
     $conn = connect();
-    if (isset($_POST['Name']))
+    if (isset($_POST['LastName']))
     {
-      $newresearcher = $conn->real_escape_string($_POST['Name']);
-      $sql = "INSERT INTO Researchers (Name) values ('".$newresearcher."')";
+      $fname = $conn->real_escape_string($_POST['FirstName']);
+      $mname = $conn->real_escape_string($_POST['MiddleName']);
+      $lname = $conn->real_escape_string($_POST['LastName']);
+      $disp = $_POST['Discipline'];
+      if (isset($_POST['Undergrad']))
+        $undergrad = 1;
+      else
+        $undergrad = 0;
+      $sql = "INSERT INTO Researchers (FirstName, MiddleName, LastName, Undergraduate, DisciplineID) values ('".$fname."', '".$mname."', '".$lname."', ".$undergrad.", ".$disp.")";
+      echo "<p>".$sql."</p>";
       $res = $conn->query($sql);
-      echo '<p id="add">added ' . $newresearcher . '.<button class="hidebtn" onclick="hideParent(this)">X</button></p>';
+      echo '<p id="add">added ' . showNameFull($fname, $mname, $lname, $undergrad, "") . '.<button class="hidebtn" onclick="hideParent(this)">X</button></p>';
     }
   ?>
 
   <div>
   <div class='content-box'>
   <form method='POST' style='float:left; margin-right:50px'>
-      Publication Name: 
-      <input type="text" name="Name">
+      Author:<br/>
+      <input type="text" name="FirstName" placeholder="First Name"><br/>
+      <input type="text" name="MiddleName" placeholder="Middle Name"><br/>
+      <input type="text" name="LastName" placeholder="Last Name"><br/>
+      <select name='Discipline'>
+        <?php
+          $res = $conn->query('select ID, Name from Discipline order by Name;');
+          while ($row = $res->fetch_array()) {
+            echo "<option value='".$row['ID']."'>".$row['Name']."</option>";
+          }
+        ?>
+      </select>
+      <input type="checkbox" name="Undergrad">Undergraduate<br/>
       <input type="submit" value="Submit" class='btn'>
     </form>
     <div class='dropdown'>
       <button hover="dropfunc()" class="dropbtn">Existing Authors</button>
       <div id="dropfilter" class="dropdown-content">
         <?php
-        $res = $conn->query('select ID, Name from Researchers order by Name;');
+        $res = $conn->query('select ID, FirstName, MiddleName, LastName, Undergraduate from Researchers order by LastName;');
         while ($row = $res->fetch_array()) {
-          $auth = $row['Name'];
+          $auth = showNameFull($row['FirstName'], $row['MiddleName'], $row['LastName'], $row['Undergraduate'], '');
           echo '<p>'.$auth.'</p>';
         }
         ?>

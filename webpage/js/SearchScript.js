@@ -144,6 +144,10 @@ function showByPublication(publication) {
   fetchPubs('Publication', publication, '', 'content-results');
 }
 
+function showByAuthor(author) {
+  fetchPubs('AuthorID', author, '', 'content-results');
+}
+
 function hideParent(e) {
   e.parentElement.style.display = "none";
 }

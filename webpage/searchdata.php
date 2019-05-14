@@ -35,6 +35,24 @@ function showName($n, $u, $s) {
     return $ret;
 }
 
+function showNameFull($f, $m, $l, $u, $s) {
+    $ret = "";
+    //Is this the searched author?
+    $searched = strlen($s) > 0 and (strripos($f, $s) !== false or strripos($m, $s) !== false or strripos($l, $s) !== false);
+    if ($searched)
+        $ret .= "<b>";
+    //Is this an undergrad?
+    if ($u == 1)
+        $ret .= "<i>";
+    $ret .= $l . ", " . $f . " " . $m;
+    if ($u == 1)
+        $ret .= "</i>";
+    if ($searched)
+        $ret .= "</b>";
+
+    return $ret;
+}
+
 // Show the title of the product
 // $t -- product title
 // $u -- url for the article
@@ -86,7 +104,7 @@ function showRow($row, $search) {
         if ($i !== 0)
             $ret .= ', ';
         $i = 1;
-        $ret .= showName($auth->Name, $auth->Undergrad, $row->search);
+        $ret .= showNameFull($auth->FirstName, $auth->MiddleName, $auth->LastName, $auth->Undergrad, $row->search);
     }
 
     $ret .= '. ';
@@ -116,6 +134,14 @@ function fetchData($conn, $searchitem, $searchterm, $searchdiscipline) {
             "and R.Name LIKE '%" . $search . "%' " .
             "order by P.Date desc, P.ID, PR.AuthorOrder";
           }
+
+    if ($searchterm == 'AuthorID') {
+    $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
+            "from Products P, ProductResearcher PR, Researchers R, ProductPublication PP, Publication Pub " .
+            "where P.ID=PR.ProductID and P.ID=PP.ProductID and PR.ResearcherID=R.ID and PP.PublicationID = Pub.ID " .
+            "and R.ID = " . $search . " " .
+            "order by P.Date desc, P.ID, PR.AuthorOrder";
+            }
 
     elseif ($searchterm == 'Keyword') {
     $sql = "SELECT P.ID, P.Title, P.URL, P.Date, P.Awards, R.Name, R.Undergraduate, Pub.Name as Publication " .
