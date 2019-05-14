@@ -47,7 +47,7 @@ function formatAuth(auth, index) {
     disp = disp + "<b>";
   if (auth.Undergrad == 1)
     disp = disp + "<i>";
-  disp = disp + auth.Name;
+  disp = disp + auth.LName + ", " + auth.FName + " " + auth.MName; // auth.Name;
   if (auth.Undergrad == 1)
     disp = disp + "</i>";
   if (term == 'Author' && auth.Name.indexOf(item) != -1)

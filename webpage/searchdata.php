@@ -53,13 +53,13 @@ function showTitle($t, $u) {
 }
 
 function fetchAuthors($conn, $pubid) {
-    $res = $conn->query('select R.Name, R.Undergraduate ' .
+    $res = $conn->query('select R.Name, R.FirstName, R.MiddleName, R.LastName, R.Undergraduate ' .
                         'from ProductResearcher PR, Researchers R ' .
                         'where PR.ResearcherID = R.ID and PR.ProductID = '.$pubid.' ' .
                         'order by PR.AuthorOrder');
     $ret = array();
     while ($row = $res->fetch_assoc()) {
-        $ret[] = (object)array('Name' => $row['Name'], 'Undergrad' => $row['Undergraduate']);
+        $ret[] = (object)array('Name' => $row['Name'], 'FName' => $row['FirstName'], 'MName' => $row['MiddleName'], 'LName' => $row['LastName'], 'Undergrad' => $row['Undergraduate']);
     }
     return $ret;
 }
