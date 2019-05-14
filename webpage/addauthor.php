@@ -1,55 +1,49 @@
 <!doctype html>
-<?php
-  $server = 'localhost';
-  $username = 'webuser';
-  $password = 'IodV6WQCNTLo5Isx!';
-  $dbname = 'undergrad_research';
-
-  $conn = new mysqli($server, $username, $password, $dbname);
-  if ($conn->connect_error) {
-      die('error: ' . $conn->connect_error);
-  }
-?>
 <html>
   <head>
-    <title> Research Hub - Add new author</title>
+    <title>Whitworth Research Hub</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="css/webpage.css">
+    <link rel="shortcut icon" type="image/png" href="https://www.whitworth.edu/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" type="image/png" href="https://www.whitworth.edu/favicon/favicon-16x16.png" sizes="16x16">
     <script src="js/SearchScript.js"></script>
   </head>
 <body>
-  <div style="clear: both">
-      <h1 style="float: left"><img src="images/whitlogo.jpg" alt="logo"></h1>
-      <h2 style="float: left">Whitworth Research Hub - Add new author </h2>
-      <br>
-  </div>
-  <nav>
-      <ul>
-          <li><a href="homepage.php">Home</a></li>
-      </ul>
-  </nav>
-  <br>
-  <div style="clear: both">
-  <p>Add new authors form, please fill all the fields</p>
-  <form method='POST'>
-    Author Name<br>
-    <input type="text" name="Name"><br>
-    <input type="submit" value="Submit">
-  </form>
-</div>
+  <?php include 'searchdata.php'; ?>
+
+  <?php include 'header.php'; showHeader('Add Author'); ?>
+  <?php include 'navbar.php'; ?>
+
   <?php
+    $conn = connect();
     if (isset($_POST['Name']))
     {
-      $newauthor = $conn->real_escape_string($_POST['Name']);
-      $sql = "INSERT INTO Researchers (Name) values ('".$newauthor."')";
+      $newresearcher = $conn->real_escape_string($_POST['Name']);
+      $sql = "INSERT INTO Researchers (Name) values ('".$newresearcher."')";
       $res = $conn->query($sql);
-      echo "sql: " . $sql . "<br/>";
-      /*
-      $auth_id = $conn->insert_id();
-      echo 'id: ' . $auth_id . '<br/>';
-      */
+      echo '<p id="add">added ' . $newresearcher . '.<button class="hidebtn" onclick="hideParent(this)">X</button></p>';
     }
-    else if (count($_POST) > 0)
-      print_r($_POST);
   ?>
+
+  <div>
+  <div class='content-box'>
+  <form method='POST' style='float:left; margin-right:50px'>
+      Publication Name: 
+      <input type="text" name="Name">
+      <input type="submit" value="Submit" class='btn'>
+    </form>
+    <div class='dropdown'>
+      <button hover="dropfunc()" class="dropbtn">Existing Authors</button>
+      <div id="dropfilter" class="dropdown-content">
+        <?php
+        $res = $conn->query('select ID, Name from Researchers order by Name;');
+        while ($row = $res->fetch_array()) {
+          $auth = $row['Name'];
+          echo '<p>'.$auth.'</p>';
+        }
+        ?>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
