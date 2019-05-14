@@ -12,7 +12,7 @@
           if (chk.checked)
             arr.push(id);
           else
-            arr.splice(auths.indexOf(id), 1);
+            arr.splice(arr.indexOf(id), 1);
 
           var suff = (arr.length == 0) ? "" : " (" + arr.length.toString() + ")";
           document.getElementById(btn).innerHTML = lbl + suff;
