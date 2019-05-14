@@ -13,7 +13,11 @@
     $conn = connect();
     $res = $conn->query('select ID, Name from Researchers order by Name;');
     while ($row = $res->fetch_array()) {
-        $auth = $row['Name'];
+        $auth = str_replace(".", " ", $row['Name']);
+        $auth = str_replace(",", "", $auth);
+        $auth = str_replace("  ", " ", $auth);
+        $auth = trim($auth);
+        echo "<p>".$auth.": ";
         $names = explode(" ", $auth);
         if ($names[0] == "Peter" or $names[0] == "Paul") {
             $fname = $names[0];
@@ -29,8 +33,8 @@
         else {
             $lname = $names[0];
             if (count($names) == 3) {
-                $mname = $names[1];
-                $fname = $names[2];
+                $mname = $names[2];
+                $fname = $names[1];
             }
             else {
                 $mname = "";
@@ -38,8 +42,12 @@
             }
         }
 
+        if (strlen($fname) == 1)
+            $fname .= ".";
+        if (strlen($mname) == 1)
+            $mname .= ".";
         $updsql = "update Researchers set FirstName='".$fname."', MiddleName='".$mname."', LastName='".$lname."' where ID=".$row['ID'].";";
-        echo "<p>".$updsql."</p>";
+        echo "".$updsql."</p>";
         $upd = $conn->query($updsql);
     }
 ?>
