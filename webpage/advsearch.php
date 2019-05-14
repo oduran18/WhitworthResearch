@@ -56,9 +56,9 @@
       <div id="dropfilter" class="dropdown-content">
         <?php
         $conn = connect();
-        $res = $conn->query('select ID, Name from Researchers order by Name;');
+        $res = $conn->query('select ID, FirstName, MiddleName, LastName, Undergraduate from Researchers order by LastName, FirstName;');
         while ($row = $res->fetch_array()) {
-          echo formatSearchItem($row['Name'], $row['ID'], 'checkAuth');
+          echo formatSearchItem(showNameFull($row['FirstName'], $row['MiddleName'], $row['LastName'], $row['Undergraduate'], ''), $row['ID'], 'checkAuth');
         }
         ?>
       </div>
