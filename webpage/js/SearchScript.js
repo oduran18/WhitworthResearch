@@ -58,7 +58,7 @@ function showTitle(title, url) {
   var ret = "";
   //Do we have a url? If so, anchor to it.
   if (url.length > 0) {
-      ret = "<a href='"+url+"'>";
+      ret = "<a href='"+url+"' target='_blank'>";
   }
   ret = ret + title;
   if (url.length > 0) {
